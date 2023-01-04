@@ -4,5 +4,6 @@ evadb==0.1.3
 
 # NOTEBOOK
 nbformat
+nbconvert
 ipykernel
 ipywidgets
