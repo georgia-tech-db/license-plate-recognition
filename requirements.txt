@@ -1,1 +1,7 @@
+### PIP REQUIREMENTS
+
 evadb==0.1.3
+
+# NOTEBOOK
+nbformat
+ipykernel
