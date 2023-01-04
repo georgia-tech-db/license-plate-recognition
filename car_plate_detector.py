@@ -33,7 +33,7 @@ class CarPlateDetector(PytorchAbstractClassifierUDF):
     def setup(self, threshold=0.1):
         self.threshold = threshold
         self.model = torchvision.models.segmentation.deeplabv3_resnet101(
-        pretrained=True, progress=True, aux_loss=False)
+        pretrained=True, progress=True)
         for p in self.model.parameters():
             p.requires_grad = False
 
