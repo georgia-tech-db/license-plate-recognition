@@ -11,11 +11,9 @@
     <a target="_blank" href="https://colab.research.google.com/georgia-tech-db/eva-application-template/blob/main/car_plate_detection.ipynb"><img src="https://www.tensorflow.org/images/download_logo_32px.png" /> Download notebook</a>
   </td>
 </table>
+<br>
 
-
-```python
-## Install Application Dependecies (Python Packages)
-```
+### Install Application Dependecies 
 
 
 ```python
@@ -59,12 +57,12 @@ print(response)
     @batch: 
                                            0
     0  Table Successfully dropped: MyVideos
-    @query_time: 0.026890170061960816
+    @query_time: 0.029622945934534073
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded VIDEO: 1
-    @query_time: 0.3470588568598032
+    @query_time: 0.32620386593043804
 
 
 ### Create Custom UDF for Car Plate Detection
@@ -88,12 +86,12 @@ print(response)
     @batch: 
                                                 0
     0  UDF CarPlateDetector successfully dropped
-    @query_time: 0.013236968079581857
+    @query_time: 0.01132194697856903
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                                0
     0  UDF CarPlateDetector successfully added to the database.
-    @query_time: 1.2290126669686288
+    @query_time: 1.3172810298856348
 
 
 ### Run Car Plate Detector on Video
@@ -101,8 +99,7 @@ print(response)
 
 ```python
 cursor.execute("""SELECT id, CarPlateDetector(data)
-                  FROM MyVideos 
-                  WHERE id < 1""")
+                  FROM MyVideos WHERE id < 1""")
 response = cursor.fetch_all()
 print(response)
 ```
@@ -114,7 +111,7 @@ print(response)
     
                                                                                   carplatedetector.results  
     0  [[0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], ...  
-    @query_time: 5.79807133693248
+    @query_time: 5.759800922125578
 
 
 ### Visualize Model Output on Video
@@ -127,6 +124,9 @@ import cv2
 import numpy as np
 
 def annotate_video(detections, input_video_path):
+
+    print(detections)
+
     color1=(207, 248, 64)
     color2=(255, 49, 49)
     thickness=4
@@ -136,15 +136,15 @@ def annotate_video(detections, input_video_path):
     height = int(vcap.get(4))
 
 
+    # Only looking at the first frame for now
     frame_id = 0
-    # Capture frame-by-frame
-    # ret = 1 if the video is captured; frame is the image
     ret, frame = vcap.read()
-    car_plates = []
+    plates_in_all_frames = []
 
     while ret:
         df = detections
         df = df[['carplatedetector.results']][df.index == frame_id]
+
         if df.size:
             dfList = df.values.tolist()
             mask = np.array(dfList[0][0])
@@ -152,22 +152,32 @@ def annotate_video(detections, input_video_path):
 
             contours, hierarchy = cv2.findContours(
                 mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-            plates = []
 
+            plates_within_this_frame = []
             for j, c in enumerate(contours):
                 x,y,w,h = cv2.boundingRect(c)
                 plate = frame[y:y+h, x:x+w]
-                plates.append(plate)
-                image_file_name = "frame" + str(frame_id)+ "_plate" + str(j) + ".png"
-                cv2.imwrite(image_file_name, plate)
-                if frame_id % 5 == 0:
-                    plt.imshow(plate)
-                    plt.show()
+                plates_within_this_frame.append(plate)
 
-            car_plates.append(plates)
+                image_file_name = "frame" + str(frame_id)+ "_plate" + str(j) + ".png"
+
+                cv2.imwrite(image_file_name, plate)
+
+                cv2.drawContours(frame, [c], 0, (0,255,0), 3)
+
+                plt.imshow(plate)
+                plt.show()
+
+            plt.imshow(frame)
+            plt.show()
+
+            plates_in_all_frames.append(plates_within_this_frame)
+            
         frame_id+=1
+
         ret, frame = vcap.read()
-    return car_plates
+
+    return plates_in_all_frames
 
 ```
 
@@ -179,10 +189,8 @@ dataframe = response.batch.frames
 car_plates = annotate_video(dataframe, input_path)
 ```
 
-
-    
-![png](README_files/README_14_0.png)
-    
+       myvideos.id                           carplatedetector.results
+    0            0  [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
 
 
 
@@ -200,6 +208,18 @@ car_plates = annotate_video(dataframe, input_path)
 
     
 ![png](README_files/README_14_3.png)
+    
+
+
+
+    
+![png](README_files/README_14_4.png)
+    
+
+
+
+    
+![png](README_files/README_14_5.png)
     
 
 
@@ -223,12 +243,12 @@ print(response)
     @batch: 
                                             0
     0  UDF OCRExtractor successfully dropped
-    @query_time: 0.0150474370457232
+    @query_time: 0.015058856923133135
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                            0
     0  UDF OCRExtractor successfully added to the database.
-    @query_time: 2.288347634021193
+    @query_time: 2.290180030046031
 
 
 
@@ -256,12 +276,12 @@ print(response)
     @batch: 
                                            0
     0  Table Successfully dropped: MyImages
-    @query_time: 0.018491002963855863
+    @query_time: 0.019538118969649076
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.036032200092449784
+    @query_time: 0.03483307408168912
     @status: ResponseStatus.SUCCESS
     @batch: 
        ocrextractor.labels                     ocrextractor.bboxes  \
@@ -269,7 +289,7 @@ print(response)
     
          ocrextractor.scores  
     0  [0.23887794246165342]  
-    @query_time: 4.605402888031676
+    @query_time: 4.500723863951862
 
 
 
@@ -298,9 +318,9 @@ def annotate_image_ocr(detections, input_image_path, output_image_path):
             x1, y1, x2, y2 = bbox
             x1, y1, x2, y2 = int(x1[0]), int(x1[1]), int(x2[0]), int(x2[1])
             # object bbox
-            frame=cv2.rectangle(frame, (x1, y1), (x2, y2), color1, thickness) 
+            cv2.rectangle(frame, (x1, y1), (x2, y2), color1, thickness) 
             # object label
-            frame = cv2.putText(frame, label, (20, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, color2, thickness, cv2.LINE_AA) 
+            cv2.putText(frame, label, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color2, thickness, cv2.LINE_AA) 
 
             # Show every  frame
             plt.imshow(frame)
@@ -314,7 +334,7 @@ def annotate_image_ocr(detections, input_image_path, output_image_path):
 ```python
 from ipywidgets import Image
 input_path = 'frame0_plate0.png'
-output_path = 'frame0_plate0.png'
+output_path = 'frame0_plate0_output.png'
 ```
 
 
