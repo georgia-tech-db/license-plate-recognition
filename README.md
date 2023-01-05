@@ -12,6 +12,9 @@
   </td>
 </table>
 <br>
+<br>
+
+
 
 ### Install Application Dependecies 
 
@@ -57,12 +60,12 @@ print(response)
     @batch: 
                                            0
     0  Table Successfully dropped: MyVideos
-    @query_time: 0.029622945934534073
+    @query_time: 0.0257792379707098
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded VIDEO: 1
-    @query_time: 0.32620386593043804
+    @query_time: 0.32135202712379396
 
 
 ### Create Custom UDF for Car Plate Detection
@@ -86,12 +89,12 @@ print(response)
     @batch: 
                                                 0
     0  UDF CarPlateDetector successfully dropped
-    @query_time: 0.01132194697856903
+    @query_time: 0.013969568070024252
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                                0
     0  UDF CarPlateDetector successfully added to the database.
-    @query_time: 1.3172810298856348
+    @query_time: 1.159466109937057
 
 
 ### Run Car Plate Detector on Video
@@ -111,7 +114,7 @@ print(response)
     
                                                                                   carplatedetector.results  
     0  [[0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], ...  
-    @query_time: 5.759800922125578
+    @query_time: 5.67964732600376
 
 
 ### Visualize Model Output on Video
@@ -243,12 +246,12 @@ print(response)
     @batch: 
                                             0
     0  UDF OCRExtractor successfully dropped
-    @query_time: 0.015058856923133135
+    @query_time: 0.017808466916903853
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                            0
     0  UDF OCRExtractor successfully added to the database.
-    @query_time: 2.290180030046031
+    @query_time: 2.270549579989165
 
 
 
@@ -276,12 +279,12 @@ print(response)
     @batch: 
                                            0
     0  Table Successfully dropped: MyImages
-    @query_time: 0.019538118969649076
+    @query_time: 0.019183574011549354
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.03483307408168912
+    @query_time: 0.03622680390253663
     @status: ResponseStatus.SUCCESS
     @batch: 
        ocrextractor.labels                     ocrextractor.bboxes  \
@@ -289,7 +292,7 @@ print(response)
     
          ocrextractor.scores  
     0  [0.23887794246165342]  
-    @query_time: 4.500723863951862
+    @query_time: 4.485609997995198
 
 
 
