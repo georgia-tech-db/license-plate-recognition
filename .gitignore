@@ -182,3 +182,5 @@ tutorials/*.py
 .benchmarks
 eva.txt
 eva-application
+
+*.png

@@ -59,12 +59,12 @@ print(response)
     @batch: 
                                            0
     0  Table Successfully dropped: MyVideos
-    @query_time: 0.02562669396866113
+    @query_time: 0.026890170061960816
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded VIDEO: 1
-    @query_time: 0.3020958750275895
+    @query_time: 0.3470588568598032
 
 
 ### Create Custom UDF for Car Plate Detection
@@ -88,12 +88,12 @@ print(response)
     @batch: 
                                                 0
     0  UDF CarPlateDetector successfully dropped
-    @query_time: 0.012406720081344247
+    @query_time: 0.013236968079581857
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                                0
     0  UDF CarPlateDetector successfully added to the database.
-    @query_time: 1.1357253150781617
+    @query_time: 1.2290126669686288
 
 
 ### Run Car Plate Detector on Video
@@ -114,29 +114,10 @@ print(response)
     
                                                                                   carplatedetector.results  
     0  [[0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], ...  
-    @query_time: 5.539487384958193
+    @query_time: 5.79807133693248
 
 
 ### Visualize Model Output on Video
-
-
-```python
-def show_images(images, cols=1, prefix='Image ', titles=None):
-    # https://gist.github.com/soply/f3eec2e79c165e39c9d540e916142ae1
-    assert((titles is None)or (len(images) == len(titles)))
-    n_images = len(images)
-    if titles is None:
-        titles = [f'{prefix} ({i})' for i in range(1, n_images + 1)]
-    fig = plt.figure()
-    for n, (image, title) in enumerate(zip(images, titles)):
-        a = fig.add_subplot(cols, int(np.ceil(n_images/float(cols))), n + 1)
-        if image.ndim == 2:
-            plt.gray()
-        plt.imshow(image)
-        a.set_title(title)
-    fig.set_size_inches(np.array(fig.get_size_inches()) * n_images)
-    plt.show()
-```
 
 
 ```python
@@ -168,8 +149,7 @@ def annotate_video(detections, input_video_path):
             dfList = df.values.tolist()
             mask = np.array(dfList[0][0])
             mask = mask.astype(np.uint8)
-            #plt.imshow(mask)
-            #frame = cv2.cvtColor(np.array(frame, copy=True), cv2.COLOR_RGB2BGR)
+
             contours, hierarchy = cv2.findContours(
                 mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
             plates = []
@@ -177,21 +157,18 @@ def annotate_video(detections, input_video_path):
             for j, c in enumerate(contours):
                 x,y,w,h = cv2.boundingRect(c)
                 plate = frame[y:y+h, x:x+w]
-                fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-                fps = 25
-                dim = plate.shape[:2]
-                video = cv2.VideoWriter("frame" + str(frame_id)+ "_plate" + str(j) + ".mp4", fourcc, fps, (dim[1], dim[0]))
-                for _ in range(50): video.write(plate)
-                video.release()
                 plates.append(plate)
+                image_file_name = "frame" + str(frame_id)+ "_plate" + str(j) + ".png"
+                cv2.imwrite(image_file_name, plate)
                 if frame_id % 5 == 0:
                     plt.imshow(plate)
                     plt.show()
-            # show_images(plates,  prefix='License plate')
+
             car_plates.append(plates)
         frame_id+=1
         ret, frame = vcap.read()
     return car_plates
+
 ```
 
 
@@ -204,47 +181,27 @@ car_plates = annotate_video(dataframe, input_path)
 
 
     
-![png](README_files/README_15_0.png)
+![png](README_files/README_14_0.png)
     
 
 
 
     
-![png](README_files/README_15_1.png)
+![png](README_files/README_14_1.png)
     
 
 
 
     
-![png](README_files/README_15_2.png)
+![png](README_files/README_14_2.png)
     
 
 
 
     
-![png](README_files/README_15_3.png)
+![png](README_files/README_14_3.png)
     
 
-
-
-```python
-from PIL import Image
-def plates2videos(car_plates):
-    for i, plates in enumerate(car_plates):
-        for j, plate in enumerate(plates):
-            fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-            fps = 25
-            dim = plate.shape[:2]
-            video = cv2.VideoWriter("frame" + str(i)+ "_plate" + str(j) + ".mp4", fourcc, fps, (dim[1], dim[0]))
-            plate = cv2.cvtColor(plate, cv2.COLOR_RGB2BGR)
-            for _ in range(50): video.write(plate)
-            video.release()
-```
-
-
-```python
-plates2videos(car_plates)
-```
 
 
 ```python
@@ -266,12 +223,12 @@ print(response)
     @batch: 
                                             0
     0  UDF OCRExtractor successfully dropped
-    @query_time: 0.014234009897336364
+    @query_time: 0.0150474370457232
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                            0
     0  UDF OCRExtractor successfully added to the database.
-    @query_time: 2.234248332097195
+    @query_time: 2.288347634021193
 
 
 
@@ -280,40 +237,39 @@ print(response)
 #    for j, plate in enumerate(plates):
 i=0
 j=0
-file_name = "frame" + str(i)+ "_plate" + str(j) + ".mp4"
+file_name = "frame" + str(i)+ "_plate" + str(j) + ".png"
 print(file_name)
-cursor.execute('DROP TABLE MyVideos')
+cursor.execute('DROP TABLE IF EXISTS MyImages')
 response = cursor.fetch_all()
 print(response)
-cursor.execute('LOAD VIDEO "' + file_name + '" INTO MyVideos;')
+cursor.execute('LOAD IMAGE "' + file_name + '" INTO MyImages;')
 response = cursor.fetch_all()
 print(response)
-cursor.execute("""SELECT id, OCRExtractor(data)
-                FROM MyVideos
-                WHERE id < 1""")
+cursor.execute("""SELECT OCRExtractor(data)
+                FROM MyImages""")
 response = cursor.fetch_all()
 print(response)
 ```
 
-    frame0_plate0.mp4
+    frame0_plate0.png
     @status: ResponseStatus.SUCCESS
     @batch: 
                                            0
-    0  Table Successfully dropped: MyVideos
-    @query_time: 0.02198908105492592
+    0  Table Successfully dropped: MyImages
+    @query_time: 0.018491002963855863
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
-    0  Number of loaded VIDEO: 1
-    @query_time: 0.045057878945954144
+    0  Number of loaded IMAGE: 1
+    @query_time: 0.036032200092449784
     @status: ResponseStatus.SUCCESS
     @batch: 
-        myvideos.id ocrextractor.labels                     ocrextractor.bboxes  \
-    0            0         [[c017726]]  [[[0, 7], [84, 7], [84, 46], [0, 46]]]   
+       ocrextractor.labels                     ocrextractor.bboxes  \
+    0         [[c017726]]  [[[0, 7], [84, 7], [84, 46], [0, 46]]]   
     
          ocrextractor.scores  
-    0  [0.15990134416995833]  
-    @query_time: 4.510515700909309
+    0  [0.23887794246165342]  
+    @query_time: 4.605402888031676
 
 
 
@@ -322,80 +278,60 @@ import cv2
 from pprint import pprint
 from matplotlib import pyplot as plt
 
-def annotate_video_ocr(detections, input_video_path, output_video_path):
+def annotate_image_ocr(detections, input_image_path, output_image_path):
     color1=(0, 255, 150)
     color2=(255, 49, 49)
     thickness=4
 
-    vcap = cv2.VideoCapture(input_video_path)
-    width = int(vcap.get(3))
-    height = int(vcap.get(4))
-    fps = vcap.get(5)
-    fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v') #codec
-    video=cv2.VideoWriter(output_video_path, fourcc, fps, (width,height))
-
     frame_id = 0
-    # Capture frame-by-frame
-    # ret = 1 if the video is captured; frame is the image
-    ret, frame = vcap.read() 
+    frame = cv2.imread(input_image_path)
 
     print(detections)
     plate_id = 0
 
-    while ret:
-        df = detections
-        df = df[['ocrextractor.bboxes', 'ocrextractor.labels']][df.index == frame_id]
-        if df.size:
-            dfLst = df.values.tolist()
-            for bbox, label in zip(dfLst[plate_id][0], dfLst[plate_id][1]):
-                x1, y1, x2, y2 = bbox
-                x1, y1, x2, y2 = int(x1[0]), int(x1[1]), int(x2[0]), int(x2[1])
-                print(x1)
-                print(y1)
-                # object bbox
-                frame=cv2.rectangle(frame, (x1, y1), (x2, y2), color1, thickness) 
-                # object label
-                print(label)
-                frame = cv2.putText(frame, label, (20, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, color2, thickness, cv2.LINE_AA) 
-            video.write(frame)
+    df = detections
+    df = df[['ocrextractor.bboxes', 'ocrextractor.labels']][df.index == frame_id]
+
+    if df.size:
+        dfLst = df.values.tolist()
+        for bbox, label in zip(dfLst[plate_id][0], dfLst[plate_id][1]):
+            x1, y1, x2, y2 = bbox
+            x1, y1, x2, y2 = int(x1[0]), int(x1[1]), int(x2[0]), int(x2[1])
+            # object bbox
+            frame=cv2.rectangle(frame, (x1, y1), (x2, y2), color1, thickness) 
+            # object label
+            frame = cv2.putText(frame, label, (20, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, color2, thickness, cv2.LINE_AA) 
 
             # Show every  frame
             plt.imshow(frame)
             plt.show()
-                
-        frame_id+=1
-        ret, frame = vcap.read()
 
-    video.release()
-    vcap.release()
+            cv2.imwrite(output_image_path, frame)
+
 ```
 
 
 ```python
-from ipywidgets import Video, Image
-input_path = 'frame0_plate0.mp4'
-output_path = 'frame0_plate0.mp4'
+from ipywidgets import Image
+input_path = 'frame0_plate0.png'
+output_path = 'frame0_plate0.png'
 ```
 
 
 ```python
 dataframe = response.batch.frames
-annotate_video_ocr(dataframe, input_path, output_path)
-#Video.from_file(output_path)
+annotate_image_ocr(dataframe, input_path, output_path)
 ```
 
-       myvideos.id ocrextractor.labels                     ocrextractor.bboxes  \
-    0            0         [[c017726]]  [[[0, 7], [84, 7], [84, 46], [0, 46]]]   
+      ocrextractor.labels                     ocrextractor.bboxes  \
+    0         [[c017726]]  [[[0, 7], [84, 7], [84, 46], [0, 46]]]   
     
          ocrextractor.scores  
-    0  [0.15990134416995833]  
-    0
-    7
-    [c017726]
+    0  [0.23887794246165342]  
 
 
 
     
-![png](README_files/README_22_1.png)
+![png](README_files/README_19_1.png)
     
 
