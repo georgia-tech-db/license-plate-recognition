@@ -60,12 +60,12 @@ print(response)
     @batch: 
                                            0
     0  Table Successfully dropped: MyVideos
-    @query_time: 0.0257792379707098
+    @query_time: 0.03177752112969756
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded VIDEO: 1
-    @query_time: 0.32135202712379396
+    @query_time: 0.2917034151032567
 
 
 ### Create Custom UDF for Car Plate Detection
@@ -89,12 +89,12 @@ print(response)
     @batch: 
                                                 0
     0  UDF CarPlateDetector successfully dropped
-    @query_time: 0.013969568070024252
+    @query_time: 0.012702311854809523
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                                0
     0  UDF CarPlateDetector successfully added to the database.
-    @query_time: 1.159466109937057
+    @query_time: 1.1732554028276354
 
 
 ### Run Car Plate Detector on Video
@@ -114,7 +114,7 @@ print(response)
     
                                                                                   carplatedetector.results  
     0  [[0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], ...  
-    @query_time: 5.67964732600376
+    @query_time: 5.61949450802058
 
 
 ### Visualize Model Output on Video
@@ -156,6 +156,9 @@ def annotate_video(detections, input_video_path):
             contours, hierarchy = cv2.findContours(
                 mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
+            plt.imshow(frame)
+            plt.show()
+
             plates_within_this_frame = []
             for j, c in enumerate(contours):
                 x,y,w,h = cv2.boundingRect(c)
@@ -166,7 +169,7 @@ def annotate_video(detections, input_video_path):
 
                 cv2.imwrite(image_file_name, plate)
 
-                cv2.drawContours(frame, [c], 0, (0,255,0), 3)
+                cv2.drawContours(frame, [c], 0,color2, 5)
 
                 plt.imshow(plate)
                 plt.show()
@@ -227,6 +230,12 @@ car_plates = annotate_video(dataframe, input_path)
 
 
 
+    
+![png](README_files/README_14_6.png)
+    
+
+
+
 ```python
 cursor.execute("DROP UDF OCRExtractor;")
 response = cursor.fetch_all()
@@ -246,12 +255,12 @@ print(response)
     @batch: 
                                             0
     0  UDF OCRExtractor successfully dropped
-    @query_time: 0.017808466916903853
+    @query_time: 0.014875926077365875
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                            0
     0  UDF OCRExtractor successfully added to the database.
-    @query_time: 2.270549579989165
+    @query_time: 2.289452744880691
 
 
 
@@ -279,12 +288,12 @@ print(response)
     @batch: 
                                            0
     0  Table Successfully dropped: MyImages
-    @query_time: 0.019183574011549354
+    @query_time: 0.01991720893420279
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.03622680390253663
+    @query_time: 0.03555848100222647
     @status: ResponseStatus.SUCCESS
     @batch: 
        ocrextractor.labels                     ocrextractor.bboxes  \
@@ -292,7 +301,7 @@ print(response)
     
          ocrextractor.scores  
     0  [0.23887794246165342]  
-    @query_time: 4.485609997995198
+    @query_time: 4.485152828972787
 
 
 
