@@ -69,12 +69,12 @@ print(response)
     @batch: 
                                            0
     0  Table Successfully dropped: MyVideos
-    @query_time: 0.04169786209240556
+    @query_time: 0.04359635501168668
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded VIDEO: 1
-    @query_time: 0.40224849595688283
+    @query_time: 0.37394632399082184
 
 
 ### Create Custom UDF for Car Plate Detection
@@ -99,40 +99,40 @@ print(response)
 
     File ‘car_plate_detector.py’ already there; not retrieving.
     
-    --2023-01-06 23:39:37--  https://www.dropbox.com/s/dl268g907vy7hxy/car_plate_detection_segmentation_model.pth
+    --2023-01-06 23:57:22--  https://www.dropbox.com/s/dl268g907vy7hxy/car_plate_detection_segmentation_model.pth
     Resolving www.dropbox.com (www.dropbox.com)... 162.125.9.18, 2620:100:601f:18::a27d:912
     Connecting to www.dropbox.com (www.dropbox.com)|162.125.9.18|:443... connected.
     HTTP request sent, awaiting response... 302 Found
     Location: /s/raw/dl268g907vy7hxy/car_plate_detection_segmentation_model.pth [following]
-    --2023-01-06 23:39:37--  https://www.dropbox.com/s/raw/dl268g907vy7hxy/car_plate_detection_segmentation_model.pth
+    --2023-01-06 23:57:22--  https://www.dropbox.com/s/raw/dl268g907vy7hxy/car_plate_detection_segmentation_model.pth
     Reusing existing connection to www.dropbox.com:443.
     HTTP request sent, awaiting response... 302 Found
-    Location: https://uca1e4860ff2a4336de6173e2bc0.dl.dropboxusercontent.com/cd/0/inline/B0FE-XDjxeTSxG7rMyeocKgVzzKAdkbEWQOyp_uTEpLok0Uehi0aCOM5K6FKE77WWhBK5QO3pZTD0ZnsouneURET1NTrIlwTlQN3UBvLvzh_jND5TW0YyNBBtUArI5c_pImdSQEVIN2WexVw5PH-2wJlauro0EazoIXjFbq4MXLb6A/file# [following]
-    --2023-01-06 23:39:37--  https://uca1e4860ff2a4336de6173e2bc0.dl.dropboxusercontent.com/cd/0/inline/B0FE-XDjxeTSxG7rMyeocKgVzzKAdkbEWQOyp_uTEpLok0Uehi0aCOM5K6FKE77WWhBK5QO3pZTD0ZnsouneURET1NTrIlwTlQN3UBvLvzh_jND5TW0YyNBBtUArI5c_pImdSQEVIN2WexVw5PH-2wJlauro0EazoIXjFbq4MXLb6A/file
-    Resolving uca1e4860ff2a4336de6173e2bc0.dl.dropboxusercontent.com (uca1e4860ff2a4336de6173e2bc0.dl.dropboxusercontent.com)... 162.125.9.15, 2620:100:601f:15::a27d:90f
-    Connecting to uca1e4860ff2a4336de6173e2bc0.dl.dropboxusercontent.com (uca1e4860ff2a4336de6173e2bc0.dl.dropboxusercontent.com)|162.125.9.15|:443... connected.
+    Location: https://uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com/cd/0/inline/B0HjhBbVy5Rt946BsRCJcQ4OqEIHBCup6F5IbC8QAGIanV6sXj6UqlNM-3Z5zKBVd19ASj5OflHAfneZX9NAaozjyopp-Pjljswj2NeTK0lCILoe7TCBpdvkRF5DL30kcgAbBjJqPHC5AFO974weh3lCZEDgbKzWW-sToXk35MxLPw/file# [following]
+    --2023-01-06 23:57:23--  https://uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com/cd/0/inline/B0HjhBbVy5Rt946BsRCJcQ4OqEIHBCup6F5IbC8QAGIanV6sXj6UqlNM-3Z5zKBVd19ASj5OflHAfneZX9NAaozjyopp-Pjljswj2NeTK0lCILoe7TCBpdvkRF5DL30kcgAbBjJqPHC5AFO974weh3lCZEDgbKzWW-sToXk35MxLPw/file
+    Resolving uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com (uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com)... 162.125.9.15, 2620:100:601f:15::a27d:90f
+    Connecting to uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com (uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com)|162.125.9.15|:443... connected.
     HTTP request sent, awaiting response... 302 Found
-    Location: /cd/0/inline2/B0GRppWhcMb_pY8xV892KrG2LAbh-1BatM6p0tUalqUwppt337vBkeMciZMjq4WBXLOg3MjhrClqPfpEO8kWVR9zvgb9EGiXy-aOYD5ms19t4LPcClgy5Ts8tRdm4GnqoqScxwtMoJzqlqFAdKfS4THeYSyDH9qh_XeGjfLxvoARYXd7yL0-KNlcX3qdt6jKDYua0PtdNHUFxAl5KK3gG4Hrnz-MKfH4K0qJ7Sm5Nbbk0TfIqsyvW4KXjsDhGsAHluo-51QoIzjRzl9m3Snmuu9VlfI9cgmQ-72tBwpgAUBntaB96s5T_MAEz3Cu_vqKxp3yda2NJWfqWSZca6cIJN5EHQuZI1FqACcMHW_9GV3Zu8aUt6ASX8X1f8K5a8TvWVRnC2YTst0sBgGZsxWsSZ4ksJm0s8RHzqVNGuvqEQN4rA/file [following]
-    --2023-01-06 23:39:37--  https://uca1e4860ff2a4336de6173e2bc0.dl.dropboxusercontent.com/cd/0/inline2/B0GRppWhcMb_pY8xV892KrG2LAbh-1BatM6p0tUalqUwppt337vBkeMciZMjq4WBXLOg3MjhrClqPfpEO8kWVR9zvgb9EGiXy-aOYD5ms19t4LPcClgy5Ts8tRdm4GnqoqScxwtMoJzqlqFAdKfS4THeYSyDH9qh_XeGjfLxvoARYXd7yL0-KNlcX3qdt6jKDYua0PtdNHUFxAl5KK3gG4Hrnz-MKfH4K0qJ7Sm5Nbbk0TfIqsyvW4KXjsDhGsAHluo-51QoIzjRzl9m3Snmuu9VlfI9cgmQ-72tBwpgAUBntaB96s5T_MAEz3Cu_vqKxp3yda2NJWfqWSZca6cIJN5EHQuZI1FqACcMHW_9GV3Zu8aUt6ASX8X1f8K5a8TvWVRnC2YTst0sBgGZsxWsSZ4ksJm0s8RHzqVNGuvqEQN4rA/file
-    Reusing existing connection to uca1e4860ff2a4336de6173e2bc0.dl.dropboxusercontent.com:443.
+    Location: /cd/0/inline2/B0FZvOrXs7Zo7m1EhYJHSpbeWe8OELZZjY9h9nX3cLtYJYjKRHtcVMH6UaYoRGwLtSKoyjE2coiDi5Qy_-b4U2nM8OuQvuoVOo-7UGzTuintWexCjXGVBPRnVVBIi4G6m9dn7ujoG-c9QTdFBB7UH_fLrMgZo9Myo7VymlMgOHH12BKmRLKkCjhizdj5kiqAH3H5Cp37bDI0FrusiC2Sq01vT2AzgTxHYsoe1JxvvQhWvJzqya60l0jPsZnU17dqTzuHrxU3EMhsD4i1HEihkTRG3RbdUuoqjKtfTj4U5kEnLVYjmvb9V5feMSE5Rl2htEtWX18zpqyd5IJJQBC3CFQCPchGdnuUXZSCxq_49Wsl9mg_PvNnL03EXt1eIk9wKJX7oArfRbNWo2szArCe_g2YhnPi_5LU4rODwka8KDXvVA/file [following]
+    --2023-01-06 23:57:23--  https://uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com/cd/0/inline2/B0FZvOrXs7Zo7m1EhYJHSpbeWe8OELZZjY9h9nX3cLtYJYjKRHtcVMH6UaYoRGwLtSKoyjE2coiDi5Qy_-b4U2nM8OuQvuoVOo-7UGzTuintWexCjXGVBPRnVVBIi4G6m9dn7ujoG-c9QTdFBB7UH_fLrMgZo9Myo7VymlMgOHH12BKmRLKkCjhizdj5kiqAH3H5Cp37bDI0FrusiC2Sq01vT2AzgTxHYsoe1JxvvQhWvJzqya60l0jPsZnU17dqTzuHrxU3EMhsD4i1HEihkTRG3RbdUuoqjKtfTj4U5kEnLVYjmvb9V5feMSE5Rl2htEtWX18zpqyd5IJJQBC3CFQCPchGdnuUXZSCxq_49Wsl9mg_PvNnL03EXt1eIk9wKJX7oArfRbNWo2szArCe_g2YhnPi_5LU4rODwka8KDXvVA/file
+    Reusing existing connection to uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com:443.
     HTTP request sent, awaiting response... 200 OK
     Length: 488553920 (466M) [application/octet-stream]
     Saving to: ‘car_plate_detection_segmentation_model.pth’
     
-    car_plate_detection 100%[===================>] 465.92M   109MB/s    in 4.2s    
+    car_plate_detection 100%[===================>] 465.92M   151MB/s    in 3.1s    
     
-    2023-01-06 23:39:42 (110 MB/s) - ‘car_plate_detection_segmentation_model.pth’ saved [488553920/488553920]
+    2023-01-06 23:57:27 (151 MB/s) - ‘car_plate_detection_segmentation_model.pth’ saved [488553920/488553920]
     
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                 0
     0  UDF CarPlateDetector successfully dropped
-    @query_time: 0.017427857033908367
+    @query_time: 0.021818228997290134
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                                0
     0  UDF CarPlateDetector successfully added to the database.
-    @query_time: 5.096344882855192
+    @query_time: 4.012411812087521
 
 
 ### Run Car Plate Detector on Video
@@ -152,7 +152,7 @@ print(response)
     
                                                                                   carplatedetector.results  
     0  [[0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], ...  
-    @query_time: 8.32355541898869
+    @query_time: 6.947272000834346
 
 
 ### Visualize Model Output on Video
@@ -296,18 +296,21 @@ print(response)
     @batch: 
                                             0
     0  UDF OCRExtractor successfully dropped
-    @query_time: 0.018680984852835536
+    @query_time: 0.021531097823753953
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                            0
     0  UDF OCRExtractor successfully added to the database.
-    @query_time: 3.14077942003496
+    @query_time: 2.8190912129357457
 
 
 
 ```python
 !wget -nc "https://raw.githubusercontent.com/georgia-tech-db/license-plate-recognition/main/test_image_1.png"
 !wget -nc "https://raw.githubusercontent.com/georgia-tech-db/license-plate-recognition/main/test_image_2.png"
+
+# DOWNLOAD ADDITIONAL IMAGES IF NEEDED AND LOAD THEM
+
 #for i, plates in enumerate(car_plates):
 #    for j, plate in enumerate(plates):
 i=0
@@ -341,22 +344,22 @@ print(response)
     @batch: 
                                            0
     0  Table Successfully dropped: MyImages
-    @query_time: 0.033112186938524246
+    @query_time: 0.034209624165669084
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.04764021001756191
+    @query_time: 0.039151394041255116
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.03296452108770609
+    @query_time: 0.02414554380811751
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.019728510873392224
+    @query_time: 0.015213507926091552
     @status: ResponseStatus.SUCCESS
     @batch: 
        ocrextractor.labels  \
@@ -373,7 +376,7 @@ print(response)
     0                     [0.23887794246165342]  
     1                       [0.765264012834225]  
     2  [0.2939907229681601, 0.5979598335637649]  
-    @query_time: 5.98257365799509
+    @query_time: 5.288759578019381
 
 
 
@@ -381,6 +384,7 @@ print(response)
 import cv2
 from pprint import pprint
 from matplotlib import pyplot as plt
+from pathlib import Path
 
 def annotate_image_ocr(detections, input_image_path, frame_id):
     color1=(0, 255, 150)
@@ -399,6 +403,8 @@ def annotate_image_ocr(detections, input_image_path, frame_id):
     df = detections
     df = df[['ocrextractor.bboxes', 'ocrextractor.labels']][df.index == frame_id]
 
+    y_offset = 200
+
     if df.size:
         dfLst = df.values.tolist()
         for bbox, label in zip(dfLst[plate_id][0], dfLst[plate_id][1]):
@@ -413,13 +419,15 @@ def annotate_image_ocr(detections, input_image_path, frame_id):
                 cv2.putText(frame, label, (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color2, thickness, cv2.LINE_AA) 
             # Full image
             else:
-                cv2.putText(frame, label, (100, 200), cv2.FONT_HERSHEY_SIMPLEX, 3, color2, thickness, cv2.LINE_AA) 
+                cv2.putText(frame, label, (100, y_offset), cv2.FONT_HERSHEY_SIMPLEX, 3, color2, thickness, cv2.LINE_AA) 
+                y_offset = y_offset + 100
 
             # Show every  frame
             plt.imshow(frame)
             plt.show()
 
-            output_path = input_path.rstrip(".png") + "_output.png"
+            p = Path(input_image_path)
+            output_path = "{0}_{2}{1}".format(p.stem, p.suffix, "output")
 
             cv2.imwrite(output_path, frame)
 
