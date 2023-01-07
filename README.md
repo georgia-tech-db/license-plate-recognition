@@ -23,6 +23,9 @@
 pip -q install -r requirements.txt
 ```
 
+    
+    [1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m A new release of pip available: [0m[31;49m22.2.2[0m[39;49m -> [0m[32;49m22.3.1[0m
+    [1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m To update, run: [0m[32;49mpython -m pip install --upgrade pip[0m
     Note: you may need to restart the kernel to use updated packages.
 
 
@@ -41,6 +44,8 @@ cursor = connect_to_server()
     
     nohup eva_server > eva.log 2>&1 &
     
+    [1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m A new release of pip available: [0m[31;49m22.2.2[0m[39;49m -> [0m[32;49m22.3.1[0m
+    [1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m To update, run: [0m[32;49mpython -m pip install --upgrade pip[0m
     Note: you may need to restart the kernel to use updated packages.
 
 
@@ -60,12 +65,12 @@ print(response)
     @batch: 
                                            0
     0  Table Successfully dropped: MyVideos
-    @query_time: 0.03177752112969756
+    @query_time: 0.040390121983364224
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded VIDEO: 1
-    @query_time: 0.2917034151032567
+    @query_time: 0.3354252960998565
 
 
 ### Create Custom UDF for Car Plate Detection
@@ -89,12 +94,12 @@ print(response)
     @batch: 
                                                 0
     0  UDF CarPlateDetector successfully dropped
-    @query_time: 0.012702311854809523
+    @query_time: 0.0141100799664855
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                                0
     0  UDF CarPlateDetector successfully added to the database.
-    @query_time: 1.1732554028276354
+    @query_time: 3.97212828299962
 
 
 ### Run Car Plate Detector on Video
@@ -114,7 +119,7 @@ print(response)
     
                                                                                   carplatedetector.results  
     0  [[0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], ...  
-    @query_time: 5.61949450802058
+    @query_time: 6.773432862013578
 
 
 ### Visualize Model Output on Video
@@ -255,12 +260,12 @@ print(response)
     @batch: 
                                             0
     0  UDF OCRExtractor successfully dropped
-    @query_time: 0.014875926077365875
+    @query_time: 0.01572672906331718
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                            0
     0  UDF OCRExtractor successfully added to the database.
-    @query_time: 2.289452744880691
+    @query_time: 2.6973602790385485
 
 
 
@@ -277,6 +282,12 @@ print(response)
 cursor.execute('LOAD IMAGE "' + file_name + '" INTO MyImages;')
 response = cursor.fetch_all()
 print(response)
+cursor.execute('LOAD IMAGE "test_image_1.png" INTO MyImages;')
+response = cursor.fetch_all()
+print(response)
+cursor.execute('LOAD IMAGE "test_image_2.png" INTO MyImages;')
+response = cursor.fetch_all()
+print(response)
 cursor.execute("""SELECT OCRExtractor(data)
                 FROM MyImages""")
 response = cursor.fetch_all()
@@ -288,20 +299,39 @@ print(response)
     @batch: 
                                            0
     0  Table Successfully dropped: MyImages
-    @query_time: 0.01991720893420279
+    @query_time: 0.0254625859670341
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.03555848100222647
+    @query_time: 0.03447879804298282
     @status: ResponseStatus.SUCCESS
     @batch: 
-       ocrextractor.labels                     ocrextractor.bboxes  \
-    0         [[c017726]]  [[[0, 7], [84, 7], [84, 46], [0, 46]]]   
+                                0
+    0  Number of loaded IMAGE: 1
+    @query_time: 0.023758686846122146
+    @status: ResponseStatus.SUCCESS
+    @batch: 
+                                0
+    0  Number of loaded IMAGE: 1
+    @query_time: 0.01523538795299828
+    @status: ResponseStatus.SUCCESS
+    @batch: 
+       ocrextractor.labels  \
+    0         [[c017726]]   
+    1      [TN-48.0.5566]   
+    2    [CID, INaQ 3044]   
     
-         ocrextractor.scores  
-    0  [0.23887794246165342]  
-    @query_time: 4.485152828972787
+                                                                                       ocrextractor.bboxes  \
+    0                                                               [[[0, 7], [84, 7], [84, 46], [0, 46]]]   
+    1                                                   [[[432, 648], [723, 648], [723, 698], [432, 698]]]   
+    2  [[[310, 196], [374, 196], [374, 220], [310, 220]], [[298, 238], [398, 238], [398, 264], [298, 26...   
+    
+                            ocrextractor.scores  
+    0                     [0.23887794246165342]  
+    1                       [0.765264012834225]  
+    2  [0.2939907229681601, 0.5979598335637649]  
+    @query_time: 4.929441120009869
 
 
 
@@ -310,13 +340,16 @@ import cv2
 from pprint import pprint
 from matplotlib import pyplot as plt
 
-def annotate_image_ocr(detections, input_image_path, output_image_path):
+def annotate_image_ocr(detections, input_image_path, frame_id):
     color1=(0, 255, 150)
     color2=(255, 49, 49)
+    white=(255, 255, 255)
     thickness=4
 
-    frame_id = 0
     frame = cv2.imread(input_image_path)
+
+    if frame_id == 0:
+        frame= cv2.copyMakeBorder(frame, 0, 100, 0, 100, cv2.BORDER_CONSTANT,value=white)
 
     print(detections)
     plate_id = 0
@@ -332,38 +365,85 @@ def annotate_image_ocr(detections, input_image_path, output_image_path):
             # object bbox
             cv2.rectangle(frame, (x1, y1), (x2, y2), color1, thickness) 
             # object label
-            cv2.putText(frame, label, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color2, thickness, cv2.LINE_AA) 
+
+            # Only license plate
+            if frame_id == 0:
+                cv2.putText(frame, label, (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color2, thickness, cv2.LINE_AA) 
+            # Full image
+            else:
+                cv2.putText(frame, label, (100, 200), cv2.FONT_HERSHEY_SIMPLEX, 3, color2, thickness, cv2.LINE_AA) 
 
             # Show every  frame
             plt.imshow(frame)
             plt.show()
 
-            cv2.imwrite(output_image_path, frame)
+            output_path = input_path.rstrip(".png") + "_output.png"
 
-```
+            cv2.imwrite(output_path, frame)
 
-
-```python
-from ipywidgets import Image
-input_path = 'frame0_plate0.png'
-output_path = 'frame0_plate0_output.png'
 ```
 
 
 ```python
 dataframe = response.batch.frames
-annotate_image_ocr(dataframe, input_path, output_path)
+annotate_image_ocr(dataframe, 'frame0_plate0.png', frame_id = 0)
+annotate_image_ocr(dataframe, 'test_image_1.png', frame_id = 1)
+annotate_image_ocr(dataframe, 'test_image_2.png', frame_id = 2)
 ```
 
-      ocrextractor.labels                     ocrextractor.bboxes  \
-    0         [[c017726]]  [[[0, 7], [84, 7], [84, 46], [0, 46]]]   
+      ocrextractor.labels                                ocrextractor.bboxes  \
+    0         [[c017726]]             [[[0, 7], [84, 7], [84, 46], [0, 46]]]   
+    1      [TN-48.0.5566]  [[[432, 648], [723, 648], [723, 698], [432, 69...   
+    2    [CID, INaQ 3044]  [[[310, 196], [374, 196], [374, 220], [310, 22...   
     
-         ocrextractor.scores  
-    0  [0.23887794246165342]  
+                            ocrextractor.scores  
+    0                     [0.23887794246165342]  
+    1                       [0.765264012834225]  
+    2  [0.2939907229681601, 0.5979598335637649]  
 
 
 
     
-![png](README_files/README_19_1.png)
+![png](README_files/README_18_1.png)
+    
+
+
+      ocrextractor.labels                                ocrextractor.bboxes  \
+    0         [[c017726]]             [[[0, 7], [84, 7], [84, 46], [0, 46]]]   
+    1      [TN-48.0.5566]  [[[432, 648], [723, 648], [723, 698], [432, 69...   
+    2    [CID, INaQ 3044]  [[[310, 196], [374, 196], [374, 220], [310, 22...   
+    
+                            ocrextractor.scores  
+    0                     [0.23887794246165342]  
+    1                       [0.765264012834225]  
+    2  [0.2939907229681601, 0.5979598335637649]  
+
+
+
+    
+![png](README_files/README_18_3.png)
+    
+
+
+      ocrextractor.labels                                ocrextractor.bboxes  \
+    0         [[c017726]]             [[[0, 7], [84, 7], [84, 46], [0, 46]]]   
+    1      [TN-48.0.5566]  [[[432, 648], [723, 648], [723, 698], [432, 69...   
+    2    [CID, INaQ 3044]  [[[310, 196], [374, 196], [374, 220], [310, 22...   
+    
+                            ocrextractor.scores  
+    0                     [0.23887794246165342]  
+    1                       [0.765264012834225]  
+    2  [0.2939907229681601, 0.5979598335637649]  
+
+
+
+    
+![png](README_files/README_18_5.png)
+    
+
+
+
+    
+![png](README_files/README_18_6.png)
     
 
