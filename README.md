@@ -69,12 +69,12 @@ print(response)
     @batch: 
                                            0
     0  Table Successfully dropped: MyVideos
-    @query_time: 0.04359635501168668
+    @query_time: 0.04456559615209699
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded VIDEO: 1
-    @query_time: 0.37394632399082184
+    @query_time: 0.3719324560370296
 
 
 ### Create Custom UDF for Car Plate Detection
@@ -99,40 +99,40 @@ print(response)
 
     File ‘car_plate_detector.py’ already there; not retrieving.
     
-    --2023-01-06 23:57:22--  https://www.dropbox.com/s/dl268g907vy7hxy/car_plate_detection_segmentation_model.pth
+    --2023-01-07 00:04:47--  https://www.dropbox.com/s/dl268g907vy7hxy/car_plate_detection_segmentation_model.pth
     Resolving www.dropbox.com (www.dropbox.com)... 162.125.9.18, 2620:100:601f:18::a27d:912
     Connecting to www.dropbox.com (www.dropbox.com)|162.125.9.18|:443... connected.
     HTTP request sent, awaiting response... 302 Found
     Location: /s/raw/dl268g907vy7hxy/car_plate_detection_segmentation_model.pth [following]
-    --2023-01-06 23:57:22--  https://www.dropbox.com/s/raw/dl268g907vy7hxy/car_plate_detection_segmentation_model.pth
+    --2023-01-07 00:04:47--  https://www.dropbox.com/s/raw/dl268g907vy7hxy/car_plate_detection_segmentation_model.pth
     Reusing existing connection to www.dropbox.com:443.
     HTTP request sent, awaiting response... 302 Found
-    Location: https://uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com/cd/0/inline/B0HjhBbVy5Rt946BsRCJcQ4OqEIHBCup6F5IbC8QAGIanV6sXj6UqlNM-3Z5zKBVd19ASj5OflHAfneZX9NAaozjyopp-Pjljswj2NeTK0lCILoe7TCBpdvkRF5DL30kcgAbBjJqPHC5AFO974weh3lCZEDgbKzWW-sToXk35MxLPw/file# [following]
-    --2023-01-06 23:57:23--  https://uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com/cd/0/inline/B0HjhBbVy5Rt946BsRCJcQ4OqEIHBCup6F5IbC8QAGIanV6sXj6UqlNM-3Z5zKBVd19ASj5OflHAfneZX9NAaozjyopp-Pjljswj2NeTK0lCILoe7TCBpdvkRF5DL30kcgAbBjJqPHC5AFO974weh3lCZEDgbKzWW-sToXk35MxLPw/file
-    Resolving uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com (uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com)... 162.125.9.15, 2620:100:601f:15::a27d:90f
-    Connecting to uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com (uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com)|162.125.9.15|:443... connected.
+    Location: https://ucab090c3d75ca32cc5939e5b4b6.dl.dropboxusercontent.com/cd/0/inline/B0F9VA8VY-zKNofPNEYoYrpQxsw5cJflYUJ16bMfqXpZzyfw1KnJqpn_nN2r85OQvYSoc3zgKDColriMoK4KblK_P5-tMKz22W5tNvMS7fVAWLKZjVqemUrIBEfgFchMgdOy5UeH1S6Lt4B6IcrOw9EPLim5MPMfMXWwgUB7Umajow/file# [following]
+    --2023-01-07 00:04:48--  https://ucab090c3d75ca32cc5939e5b4b6.dl.dropboxusercontent.com/cd/0/inline/B0F9VA8VY-zKNofPNEYoYrpQxsw5cJflYUJ16bMfqXpZzyfw1KnJqpn_nN2r85OQvYSoc3zgKDColriMoK4KblK_P5-tMKz22W5tNvMS7fVAWLKZjVqemUrIBEfgFchMgdOy5UeH1S6Lt4B6IcrOw9EPLim5MPMfMXWwgUB7Umajow/file
+    Resolving ucab090c3d75ca32cc5939e5b4b6.dl.dropboxusercontent.com (ucab090c3d75ca32cc5939e5b4b6.dl.dropboxusercontent.com)... 162.125.9.15, 2620:100:601f:15::a27d:90f
+    Connecting to ucab090c3d75ca32cc5939e5b4b6.dl.dropboxusercontent.com (ucab090c3d75ca32cc5939e5b4b6.dl.dropboxusercontent.com)|162.125.9.15|:443... connected.
     HTTP request sent, awaiting response... 302 Found
-    Location: /cd/0/inline2/B0FZvOrXs7Zo7m1EhYJHSpbeWe8OELZZjY9h9nX3cLtYJYjKRHtcVMH6UaYoRGwLtSKoyjE2coiDi5Qy_-b4U2nM8OuQvuoVOo-7UGzTuintWexCjXGVBPRnVVBIi4G6m9dn7ujoG-c9QTdFBB7UH_fLrMgZo9Myo7VymlMgOHH12BKmRLKkCjhizdj5kiqAH3H5Cp37bDI0FrusiC2Sq01vT2AzgTxHYsoe1JxvvQhWvJzqya60l0jPsZnU17dqTzuHrxU3EMhsD4i1HEihkTRG3RbdUuoqjKtfTj4U5kEnLVYjmvb9V5feMSE5Rl2htEtWX18zpqyd5IJJQBC3CFQCPchGdnuUXZSCxq_49Wsl9mg_PvNnL03EXt1eIk9wKJX7oArfRbNWo2szArCe_g2YhnPi_5LU4rODwka8KDXvVA/file [following]
-    --2023-01-06 23:57:23--  https://uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com/cd/0/inline2/B0FZvOrXs7Zo7m1EhYJHSpbeWe8OELZZjY9h9nX3cLtYJYjKRHtcVMH6UaYoRGwLtSKoyjE2coiDi5Qy_-b4U2nM8OuQvuoVOo-7UGzTuintWexCjXGVBPRnVVBIi4G6m9dn7ujoG-c9QTdFBB7UH_fLrMgZo9Myo7VymlMgOHH12BKmRLKkCjhizdj5kiqAH3H5Cp37bDI0FrusiC2Sq01vT2AzgTxHYsoe1JxvvQhWvJzqya60l0jPsZnU17dqTzuHrxU3EMhsD4i1HEihkTRG3RbdUuoqjKtfTj4U5kEnLVYjmvb9V5feMSE5Rl2htEtWX18zpqyd5IJJQBC3CFQCPchGdnuUXZSCxq_49Wsl9mg_PvNnL03EXt1eIk9wKJX7oArfRbNWo2szArCe_g2YhnPi_5LU4rODwka8KDXvVA/file
-    Reusing existing connection to uce1eaf305314107d65ee6646ede.dl.dropboxusercontent.com:443.
+    Location: /cd/0/inline2/B0GJ-auu4zjq-kYQAZpgLt5Msanu8PQRsjrJGYVZnenu7oE7Wlg22JxlrNKlm6Oemi1so20t7dLa9xFZM0HV6TfZq7BJiDXfcGgHj4PVCH-M80S7Fy7hjwym-4mDcBsDgiPTrXUtSsPnrgA7B4wmVkJyiqCqnrfDQQDesVy8_9NeBBuK8TmNQ3AiFve0PslQGreKi3iPo2-jOBTnr30-WfL4LlErKggbUSCXADAICTvcyGb0rrzacgWhtKPWsOI94r6l3YMn-xH-qZLjamzWWZa8YsEClWdNVFulBH9lUiA4-Cb025AsCB5tKZaSEm0V3UZN5rEfQBS1hiqZxuqeBKzEKMrcW4ZFD0Gdq1OV5AnK_iX027-Q9inWVw866nGNDPOVXiZlgy5fkvz0HI5LVqs-hJe4L29t4gkbaxTAu6LDGg/file [following]
+    --2023-01-07 00:04:48--  https://ucab090c3d75ca32cc5939e5b4b6.dl.dropboxusercontent.com/cd/0/inline2/B0GJ-auu4zjq-kYQAZpgLt5Msanu8PQRsjrJGYVZnenu7oE7Wlg22JxlrNKlm6Oemi1so20t7dLa9xFZM0HV6TfZq7BJiDXfcGgHj4PVCH-M80S7Fy7hjwym-4mDcBsDgiPTrXUtSsPnrgA7B4wmVkJyiqCqnrfDQQDesVy8_9NeBBuK8TmNQ3AiFve0PslQGreKi3iPo2-jOBTnr30-WfL4LlErKggbUSCXADAICTvcyGb0rrzacgWhtKPWsOI94r6l3YMn-xH-qZLjamzWWZa8YsEClWdNVFulBH9lUiA4-Cb025AsCB5tKZaSEm0V3UZN5rEfQBS1hiqZxuqeBKzEKMrcW4ZFD0Gdq1OV5AnK_iX027-Q9inWVw866nGNDPOVXiZlgy5fkvz0HI5LVqs-hJe4L29t4gkbaxTAu6LDGg/file
+    Reusing existing connection to ucab090c3d75ca32cc5939e5b4b6.dl.dropboxusercontent.com:443.
     HTTP request sent, awaiting response... 200 OK
     Length: 488553920 (466M) [application/octet-stream]
     Saving to: ‘car_plate_detection_segmentation_model.pth’
     
-    car_plate_detection 100%[===================>] 465.92M   151MB/s    in 3.1s    
+    car_plate_detection 100%[===================>] 465.92M   122MB/s    in 3.8s    
     
-    2023-01-06 23:57:27 (151 MB/s) - ‘car_plate_detection_segmentation_model.pth’ saved [488553920/488553920]
+    2023-01-07 00:04:52 (122 MB/s) - ‘car_plate_detection_segmentation_model.pth’ saved [488553920/488553920]
     
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                 0
     0  UDF CarPlateDetector successfully dropped
-    @query_time: 0.021818228997290134
+    @query_time: 0.018585695885121822
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                                0
     0  UDF CarPlateDetector successfully added to the database.
-    @query_time: 4.012411812087521
+    @query_time: 4.063912588870153
 
 
 ### Run Car Plate Detector on Video
@@ -152,7 +152,7 @@ print(response)
     
                                                                                   carplatedetector.results  
     0  [[0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], ...  
-    @query_time: 6.947272000834346
+    @query_time: 6.903488612035289
 
 
 ### Visualize Model Output on Video
@@ -296,12 +296,12 @@ print(response)
     @batch: 
                                             0
     0  UDF OCRExtractor successfully dropped
-    @query_time: 0.021531097823753953
+    @query_time: 0.019467629957944155
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                            0
     0  UDF OCRExtractor successfully added to the database.
-    @query_time: 2.8190912129357457
+    @query_time: 2.8543776210863143
 
 
 
@@ -344,22 +344,22 @@ print(response)
     @batch: 
                                            0
     0  Table Successfully dropped: MyImages
-    @query_time: 0.034209624165669084
+    @query_time: 0.030551298055797815
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.039151394041255116
+    @query_time: 0.03689899784512818
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.02414554380811751
+    @query_time: 0.02814066084101796
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.015213507926091552
+    @query_time: 0.015623269835487008
     @status: ResponseStatus.SUCCESS
     @batch: 
        ocrextractor.labels  \
@@ -376,7 +376,7 @@ print(response)
     0                     [0.23887794246165342]  
     1                       [0.765264012834225]  
     2  [0.2939907229681601, 0.5979598335637649]  
-    @query_time: 5.288759578019381
+    @query_time: 5.2316397780086845
 
 
 
