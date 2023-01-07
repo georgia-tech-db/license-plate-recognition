@@ -1,32 +1,33 @@
-# Car Plate Detection Tutorial
+# License Plate Detection Tutorial
 
 <table align="left">
   <td>
-    <a target="_blank" href="https://colab.research.google.com/georgia-tech-db/eva-application-template/blob/main/car_plate_detection.ipynb"><img src="https://www.tensorflow.org/images/colab_logo_32px.png" /> Run on Google Colab</a>
+    <a target="_blank" href="https://colab.research.google.com/georgia-tech-db/license-plate-recognition/blob/main/README.ipynb"><img src="https://www.tensorflow.org/images/colab_logo_32px.png" /> Run on Google Colab</a>
   </td>
   <td>
-    <a target="_blank" href="https://colab.research.google.com/georgia-tech-db/eva-application-template/blob/main/car_plate_detection.ipynb"><img src="https://www.tensorflow.org/images/GitHub-Mark-32px.png" /> View source on GitHub</a>
+    <a target="_blank" href="https://github.com/georgia-tech-db/license-plate-recognition/blob/main/README.ipynb"><img src="https://www.tensorflow.org/images/GitHub-Mark-32px.png" /> View source on GitHub</a>
   </td>
   <td>
-    <a target="_blank" href="https://colab.research.google.com/georgia-tech-db/eva-application-template/blob/main/car_plate_detection.ipynb"><img src="https://www.tensorflow.org/images/download_logo_32px.png" /> Download notebook</a>
+    <a target="_blank" href="
+    https://raw.githubusercontent.com/georgia-tech-db/license-plate-recognition/main/README.ipynb"><img src="https://www.tensorflow.org/images/download_logo_32px.png" /> Download notebook</a>
   </td>
 </table>
 <br>
 <br>
 
-
-
 ### Install Application Dependecies 
 
 
 ```python
-pip -q install -r requirements.txt
+!wget -nc https://raw.githubusercontent.com/georgia-tech-db/license-plate-recognition/main/requirements.txt
+!pip -q install -r requirements.txt
 ```
 
+    File ‘requirements.txt’ already there; not retrieving.
+    
     
     [1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m A new release of pip available: [0m[31;49m22.2.2[0m[39;49m -> [0m[32;49m22.3.1[0m
-    [1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m To update, run: [0m[32;49mpython -m pip install --upgrade pip[0m
-    Note: you may need to restart the kernel to use updated packages.
+    [1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m To update, run: [0m[32;49mpip install --upgrade pip[0m
 
 
 ### Start EVA server
@@ -53,6 +54,7 @@ cursor = connect_to_server()
 
 
 ```python
+!wget -nc "https://raw.githubusercontent.com/georgia-tech-db/license-plate-recognition/main/1.mp4"
 cursor.execute('DROP TABLE IF EXISTS MyVideos;')
 response = cursor.fetch_all()
 print(response)
@@ -61,22 +63,27 @@ response = cursor.fetch_all()
 print(response)
 ```
 
+    File ‘1.mp4’ already there; not retrieving.
+    
     @status: ResponseStatus.SUCCESS
     @batch: 
                                            0
     0  Table Successfully dropped: MyVideos
-    @query_time: 0.040390121983364224
+    @query_time: 0.039649493992328644
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded VIDEO: 1
-    @query_time: 0.3354252960998565
+    @query_time: 0.4068210828118026
 
 
 ### Create Custom UDF for Car Plate Detection
 
 
 ```python
+!wget -nc "https://raw.githubusercontent.com/georgia-tech-db/license-plate-recognition/main/car_plate_detector.py"
+!wget -nc "https://www.dropbox.com/s/dl268g907vy7hxy/car_plate_detection_segmentation_model.pth"
+!mv car_plate_detection_segmentation_model.pth model.pth
 cursor.execute("DROP UDF IF EXISTS CarPlateDetector;")
 response = cursor.fetch_all()
 print(response)
@@ -90,16 +97,42 @@ response = cursor.fetch_all()
 print(response)
 ```
 
+    File ‘car_plate_detector.py’ already there; not retrieving.
+    
+    --2023-01-06 23:36:16--  https://www.dropbox.com/s/dl268g907vy7hxy/car_plate_detection_segmentation_model.pth
+    Resolving www.dropbox.com (www.dropbox.com)... 162.125.9.18, 2620:100:601f:18::a27d:912
+    Connecting to www.dropbox.com (www.dropbox.com)|162.125.9.18|:443... connected.
+    HTTP request sent, awaiting response... 302 Found
+    Location: /s/raw/dl268g907vy7hxy/car_plate_detection_segmentation_model.pth [following]
+    --2023-01-06 23:36:17--  https://www.dropbox.com/s/raw/dl268g907vy7hxy/car_plate_detection_segmentation_model.pth
+    Reusing existing connection to www.dropbox.com:443.
+    HTTP request sent, awaiting response... 302 Found
+    Location: https://ucdf6f747090dd433c5da9ba1570.dl.dropboxusercontent.com/cd/0/inline/B0FwdPGAW2vi6qwhgAtqgggPmciyaaj3-HghsFTq00TvLqWqXR--b5-C36ovV0Fo-94OfbrN1w0BxbiBz_2G8CemUPYLuUjlNZK_48H7FN9VrONKJVp82CbcNJrCZ4gIT3ivwMo_etHALTWSTbPjJww5-Yo9Ar011RDXuK3IEakdlw/file# [following]
+    --2023-01-06 23:36:17--  https://ucdf6f747090dd433c5da9ba1570.dl.dropboxusercontent.com/cd/0/inline/B0FwdPGAW2vi6qwhgAtqgggPmciyaaj3-HghsFTq00TvLqWqXR--b5-C36ovV0Fo-94OfbrN1w0BxbiBz_2G8CemUPYLuUjlNZK_48H7FN9VrONKJVp82CbcNJrCZ4gIT3ivwMo_etHALTWSTbPjJww5-Yo9Ar011RDXuK3IEakdlw/file
+    Resolving ucdf6f747090dd433c5da9ba1570.dl.dropboxusercontent.com (ucdf6f747090dd433c5da9ba1570.dl.dropboxusercontent.com)... 162.125.9.15, 2620:100:601f:15::a27d:90f
+    Connecting to ucdf6f747090dd433c5da9ba1570.dl.dropboxusercontent.com (ucdf6f747090dd433c5da9ba1570.dl.dropboxusercontent.com)|162.125.9.15|:443... connected.
+    HTTP request sent, awaiting response... 302 Found
+    Location: /cd/0/inline2/B0GLV_bWWxn9D2j0qUsYJNfe3e8ATtArR4TUQ5a-xr2xoS05tLxBoBaoVVeg2z8LYwPKBUGtecsB0F5uQDjD2L3GuPFAx2GKagL58-_vcTXRTfav2QE1aX_3cGuqkWXUUDECst042s4RZvXUDh4PLyg9kSaYnDlU5JFnPqeeKQRd9nTJ0v2sklFoLdUe0gUtRlGEdSJomRJqoPZi0WQDGMm3SxCLp-7GCjS6P1RD9KHJtveXlMXwjOv6MLTDxD81emphmHeHea0EnVd385mrRfCkUG0YjA3FWT78DAKj2h8GdVgyLKyJkrRo8zsxWTAh8Na1mXe5I7-EskN-jE6FJuPvSwEaNRLdZrFx0MdcLT_itdiAHQdX-rka1m2dhehrRuLO-aArT8vdOJXRfKVbEr-_CB4ZhMr2YwtW2MoCYi4TYQ/file [following]
+    --2023-01-06 23:36:17--  https://ucdf6f747090dd433c5da9ba1570.dl.dropboxusercontent.com/cd/0/inline2/B0GLV_bWWxn9D2j0qUsYJNfe3e8ATtArR4TUQ5a-xr2xoS05tLxBoBaoVVeg2z8LYwPKBUGtecsB0F5uQDjD2L3GuPFAx2GKagL58-_vcTXRTfav2QE1aX_3cGuqkWXUUDECst042s4RZvXUDh4PLyg9kSaYnDlU5JFnPqeeKQRd9nTJ0v2sklFoLdUe0gUtRlGEdSJomRJqoPZi0WQDGMm3SxCLp-7GCjS6P1RD9KHJtveXlMXwjOv6MLTDxD81emphmHeHea0EnVd385mrRfCkUG0YjA3FWT78DAKj2h8GdVgyLKyJkrRo8zsxWTAh8Na1mXe5I7-EskN-jE6FJuPvSwEaNRLdZrFx0MdcLT_itdiAHQdX-rka1m2dhehrRuLO-aArT8vdOJXRfKVbEr-_CB4ZhMr2YwtW2MoCYi4TYQ/file
+    Reusing existing connection to ucdf6f747090dd433c5da9ba1570.dl.dropboxusercontent.com:443.
+    HTTP request sent, awaiting response... 200 OK
+    Length: 488553920 (466M) [application/octet-stream]
+    Saving to: ‘car_plate_detection_segmentation_model.pth’
+    
+    car_plate_detection 100%[===================>] 465.92M   180MB/s    in 2.6s    
+    
+    2023-01-06 23:36:20 (180 MB/s) - ‘car_plate_detection_segmentation_model.pth’ saved [488553920/488553920]
+    
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                 0
     0  UDF CarPlateDetector successfully dropped
-    @query_time: 0.0141100799664855
+    @query_time: 0.14053097506985068
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                                0
     0  UDF CarPlateDetector successfully added to the database.
-    @query_time: 3.97212828299962
+    @query_time: 4.382114103995264
 
 
 ### Run Car Plate Detector on Video
@@ -119,7 +152,7 @@ print(response)
     
                                                                                   carplatedetector.results  
     0  [[0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], [0 0 0 ... 0 0 0], ...  
-    @query_time: 6.773432862013578
+    @query_time: 9.388000460108742
 
 
 ### Visualize Model Output on Video
@@ -242,6 +275,7 @@ car_plates = annotate_video(dataframe, input_path)
 
 
 ```python
+!wget -nc "https://raw.githubusercontent.com/georgia-tech-db/license-plate-recognition/main/ocr_extractor.py"
 cursor.execute("DROP UDF OCRExtractor;")
 response = cursor.fetch_all()
 print(response)
@@ -256,20 +290,24 @@ response = cursor.fetch_all()
 print(response)
 ```
 
+    File ‘ocr_extractor.py’ already there; not retrieving.
+    
     @status: ResponseStatus.SUCCESS
     @batch: 
                                             0
     0  UDF OCRExtractor successfully dropped
-    @query_time: 0.01572672906331718
+    @query_time: 0.01831791619770229
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                            0
     0  UDF OCRExtractor successfully added to the database.
-    @query_time: 2.6973602790385485
+    @query_time: 3.1996898180805147
 
 
 
 ```python
+!wget -nc "https://raw.githubusercontent.com/georgia-tech-db/license-plate-recognition/main/test_image_1.png"
+!wget -nc "https://raw.githubusercontent.com/georgia-tech-db/license-plate-recognition/main/test_image_2.png"
 #for i, plates in enumerate(car_plates):
 #    for j, plate in enumerate(plates):
 i=0
@@ -294,27 +332,31 @@ response = cursor.fetch_all()
 print(response)
 ```
 
+    File ‘test_image_1.png’ already there; not retrieving.
+    
+    File ‘test_image_2.png’ already there; not retrieving.
+    
     frame0_plate0.png
     @status: ResponseStatus.SUCCESS
     @batch: 
                                            0
     0  Table Successfully dropped: MyImages
-    @query_time: 0.0254625859670341
+    @query_time: 0.028140448033809662
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.03447879804298282
+    @query_time: 0.036998291965574026
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.023758686846122146
+    @query_time: 0.025037606013938785
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.01523538795299828
+    @query_time: 0.01783863198943436
     @status: ResponseStatus.SUCCESS
     @batch: 
        ocrextractor.labels  \
@@ -331,7 +373,7 @@ print(response)
     0                     [0.23887794246165342]  
     1                       [0.765264012834225]  
     2  [0.2939907229681601, 0.5979598335637649]  
-    @query_time: 4.929441120009869
+    @query_time: 5.597287114942446
 
 
 
