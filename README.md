@@ -20,14 +20,14 @@
 
 ```python
 !wget -nc https://raw.githubusercontent.com/georgia-tech-db/license-plate-recognition/main/requirements.txt
-!pip -q install -r requirements.txt
+!pip -q --no-color install -r requirements.txt
 ```
 
     File ‘requirements.txt’ already there; not retrieving.
     
     
-    [1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m A new release of pip available: [0m[31;49m22.2.2[0m[39;49m -> [0m[32;49m22.3.1[0m
-    [1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m To update, run: [0m[32;49mpip install --upgrade pip[0m
+    [1m[[0mnotice[1m][0m A new release of pip available: 22.2.2 -> 22.3.1
+    [1m[[0mnotice[1m][0m To update, run: pip install --upgrade pip
 
 
 ### Start EVA server
@@ -75,12 +75,12 @@ print(response)
     @batch: 
                                                      0
     0  UDF LicensePlateExtractor successfully dropped
-    @query_time: 0.022085851058363914
+    @query_time: 0.022147773997858167
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                                     0
     0  UDF LicensePlateExtractor successfully added to the database.
-    @query_time: 6.0698400570545346
+    @query_time: 6.117930265143514
 
 
 ## Download Images for License Plate Recognition
@@ -143,37 +143,37 @@ print(response)
     @batch: 
                                            0
     0  Table Successfully dropped: MyImages
-    @query_time: 0.04317609500139952
+    @query_time: 0.04186136811040342
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.045315965078771114
+    @query_time: 0.04633867903612554
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.03185475105419755
+    @query_time: 0.03080133907496929
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.02702555013820529
+    @query_time: 0.019923059036955237
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.01661463500931859
+    @query_time: 0.016502656042575836
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.018255861941725016
+    @query_time: 0.017850678879767656
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.12427166197448969
+    @query_time: 0.12373152794316411
     @status: ResponseStatus.SUCCESS
     @batch: 
        licenseplateextractor.labels  \
@@ -199,7 +199,7 @@ print(response)
     3                          [0.8205181373232121]  
     4                         [0.37683450003837526]  
     5  [0.005999226930693703, 0.041628318390644674]  
-    @query_time: 6.207507516955957
+    @query_time: 6.203295932849869
 
 
 ### Annotate Model Output on Image
