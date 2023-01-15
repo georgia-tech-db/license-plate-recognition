@@ -75,12 +75,12 @@ print(response)
     @batch: 
                                                      0
     0  UDF LicensePlateExtractor successfully dropped
-    @query_time: 0.022490965900942683
+    @query_time: 0.021781272953376174
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                                     0
     0  UDF LicensePlateExtractor successfully added to the database.
-    @query_time: 6.094991956138983
+    @query_time: 6.117155366810039
 
 
 # Download Images or Videos for License Plate Recognition
@@ -92,6 +92,7 @@ print(response)
 !wget -nc "https://raw.githubusercontent.com/femioladeji/License-Plate-Recognition-Nigerian-vehicles/master/test_images/car10.jpg"
 !wget -nc "https://raw.githubusercontent.com/femioladeji/License-Plate-Recognition-Nigerian-vehicles/master/test_images/car6.jpg"
 !wget -nc "https://im.ezgif.com/tmp/ezgif-1-c32008dd2a-jpg/ezgif-frame-001.jpg"
+!wget -nc "https://i.ytimg.com/vi/p91epBEfISk/maxresdefault.jpg"
 
 # DOWNLOAD ADDITIONAL IMAGES IF NEEDED AND LOAD THEM HERE
 
@@ -118,6 +119,9 @@ cursor.execute('LOAD IMAGE "car6.jpg" INTO MyImages;')
 response = cursor.fetch_all()
 print(response)
 cursor.execute('LOAD IMAGE "ezgif-frame-001.jpg" INTO MyImages;')
+response = cursor.fetch_all()
+print(response)
+cursor.execute('LOAD IMAGE "maxresdefault.jpg" INTO MyImages;')
 response = cursor.fetch_all()
 print(response)
 
@@ -160,36 +164,43 @@ print(response2)
     
     File ‘ezgif-frame-001.jpg’ already there; not retrieving.
     
+    File ‘maxresdefault.jpg’ already there; not retrieving.
+    
     @status: ResponseStatus.SUCCESS
     @batch: 
                                            0
     0  Table Successfully dropped: MyImages
-    @query_time: 0.04336433485150337
+    @query_time: 0.044570326106622815
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.06612796895205975
+    @query_time: 0.06453206902369857
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.01945077395066619
+    @query_time: 0.019328153925016522
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.016384931979700923
+    @query_time: 0.016461054794490337
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.02037842688150704
+    @query_time: 0.018691211938858032
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.11066173296421766
+    @query_time: 0.12282829103060067
+    @status: ResponseStatus.SUCCESS
+    @batch: 
+                                0
+    0  Number of loaded IMAGE: 1
+    @query_time: 0.023271142039448023
     @status: ResponseStatus.SUCCESS
     @batch: 
        licenseplateextractor.labels  \
@@ -198,6 +209,7 @@ print(response2)
     2                   [EGB62644]   
     3                   [LEM446A4]   
     4        [4II982A7A, 770L7726]   
+    5     [LPD7SRV616, IPD8NBZ548]   
     
                                                                               licenseplateextractor.bboxes  \
     0                                                   [[[432, 648], [723, 648], [723, 698], [432, 698]]]   
@@ -205,6 +217,7 @@ print(response2)
     2                                                   [[[178, 430], [300, 430], [300, 462], [178, 462]]]   
     3                                                   [[[263, 465], [383, 465], [383, 501], [263, 501]]]   
     4  [[[2263, 398], [2347, 398], [2347, 436], [2263, 436]], [[216.02985749985467, 829.1194299994187],...   
+    5  [[[236, 372], [344, 372], [344, 396], [236, 396]], [[986, 536], [1100, 536], [1100, 560], [986, ...   
     
                        licenseplateextractor.scores  
     0                           [0.765264012834225]  
@@ -212,19 +225,20 @@ print(response2)
     2                          [0.8205181373232121]  
     3                         [0.37683450003837526]  
     4  [0.005999226930693703, 0.041628318390644674]  
-    @query_time: 6.133099450962618
+    5      [0.3380678860228084, 0.8426790601376755]  
+    @query_time: 6.468493198044598
     File ‘video12.mp4’ already there; not retrieving.
     
     @status: ResponseStatus.SUCCESS
     @batch: 
                                            0
     0  Table Successfully dropped: MyVideos
-    @query_time: 0.03416454792022705
+    @query_time: 0.03346487390808761
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded VIDEO: 1
-    @query_time: 0.10247574001550674
+    @query_time: 0.11669299798086286
     @status: ResponseStatus.SUCCESS
     @batch: 
        licenseplateextractor.labels  \
@@ -235,7 +249,7 @@ print(response2)
     
       licenseplateextractor.scores  
     0         [0.5929218894477851]  
-    @query_time: 5.535594867076725
+    @query_time: 5.811167005915195
 
 
 ### Annotate Model Output on Image
@@ -277,12 +291,8 @@ def annotate_image_ocr(detections, input_image_path, frame_id):
             cv2.rectangle(frame, (x1, y1), (x2, y2), color1, thickness) 
 
             # object label
-            if width < 1200:
-                cv2.putText(frame, label, (int(x_offset), int(y_offset)), cv2.FONT_HERSHEY_SIMPLEX, 2, color2, thickness, cv2.LINE_AA) 
-                y_offset = y_offset + height * 0.2
-            else:
-                cv2.putText(frame, label, (int(x_offset), int(y_offset)), cv2.FONT_HERSHEY_SIMPLEX, 6, color2, thickness * 3, cv2.LINE_AA) 
-                y_offset = y_offset + height * 0.1
+            cv2.putText(frame, label, (int(x1), int(y1 - height * 0.1)), cv2.FONT_HERSHEY_SIMPLEX, (6 * width)/2400, color2, 
+                                  int((12 * width)/2400), cv2.LINE_AA) 
 
             # Show every  frame
             plt.imshow(frame)
@@ -298,11 +308,12 @@ def annotate_image_ocr(detections, input_image_path, frame_id):
 
 ```python
 dataframe = response.batch.frames
-annotate_image_ocr(dataframe, 'test_image_1.png', frame_id = 1)
-annotate_image_ocr(dataframe, 'test_image_2.png', frame_id = 2)
-annotate_image_ocr(dataframe, 'car10.jpg', frame_id = 3)
-annotate_image_ocr(dataframe, 'car6.jpg', frame_id = 4)
-annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
+annotate_image_ocr(dataframe, 'test_image_1.png', frame_id = 0)
+annotate_image_ocr(dataframe, 'test_image_2.png', frame_id = 1)
+annotate_image_ocr(dataframe, 'car10.jpg', frame_id = 2)
+annotate_image_ocr(dataframe, 'car6.jpg', frame_id = 3)
+annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 4)
+annotate_image_ocr(dataframe, 'maxresdefault.jpg', frame_id = 5)
 ```
 
       licenseplateextractor.labels  \
@@ -311,6 +322,7 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2                   [EGB62644]   
     3                   [LEM446A4]   
     4        [4II982A7A, 770L7726]   
+    5     [LPD7SRV616, IPD8NBZ548]   
     
                             licenseplateextractor.bboxes  \
     0  [[[432, 648], [723, 648], [723, 698], [432, 69...   
@@ -318,6 +330,7 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2  [[[178, 430], [300, 430], [300, 462], [178, 46...   
     3  [[[263, 465], [383, 465], [383, 501], [263, 50...   
     4  [[[2263, 398], [2347, 398], [2347, 436], [2263...   
+    5  [[[236, 372], [344, 372], [344, 396], [236, 39...   
     
                        licenseplateextractor.scores  
     0                           [0.765264012834225]  
@@ -325,6 +338,7 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2                          [0.8205181373232121]  
     3                         [0.37683450003837526]  
     4  [0.005999226930693703, 0.041628318390644674]  
+    5      [0.3380678860228084, 0.8426790601376755]  
 
 
 
@@ -339,6 +353,7 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2                   [EGB62644]   
     3                   [LEM446A4]   
     4        [4II982A7A, 770L7726]   
+    5     [LPD7SRV616, IPD8NBZ548]   
     
                             licenseplateextractor.bboxes  \
     0  [[[432, 648], [723, 648], [723, 698], [432, 69...   
@@ -346,6 +361,7 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2  [[[178, 430], [300, 430], [300, 462], [178, 46...   
     3  [[[263, 465], [383, 465], [383, 501], [263, 50...   
     4  [[[2263, 398], [2347, 398], [2347, 436], [2263...   
+    5  [[[236, 372], [344, 372], [344, 396], [236, 39...   
     
                        licenseplateextractor.scores  
     0                           [0.765264012834225]  
@@ -353,6 +369,7 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2                          [0.8205181373232121]  
     3                         [0.37683450003837526]  
     4  [0.005999226930693703, 0.041628318390644674]  
+    5      [0.3380678860228084, 0.8426790601376755]  
 
 
 
@@ -367,6 +384,7 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2                   [EGB62644]   
     3                   [LEM446A4]   
     4        [4II982A7A, 770L7726]   
+    5     [LPD7SRV616, IPD8NBZ548]   
     
                             licenseplateextractor.bboxes  \
     0  [[[432, 648], [723, 648], [723, 698], [432, 69...   
@@ -374,6 +392,7 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2  [[[178, 430], [300, 430], [300, 462], [178, 46...   
     3  [[[263, 465], [383, 465], [383, 501], [263, 50...   
     4  [[[2263, 398], [2347, 398], [2347, 436], [2263...   
+    5  [[[236, 372], [344, 372], [344, 396], [236, 39...   
     
                        licenseplateextractor.scores  
     0                           [0.765264012834225]  
@@ -381,6 +400,7 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2                          [0.8205181373232121]  
     3                         [0.37683450003837526]  
     4  [0.005999226930693703, 0.041628318390644674]  
+    5      [0.3380678860228084, 0.8426790601376755]  
 
 
 
@@ -395,6 +415,7 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2                   [EGB62644]   
     3                   [LEM446A4]   
     4        [4II982A7A, 770L7726]   
+    5     [LPD7SRV616, IPD8NBZ548]   
     
                             licenseplateextractor.bboxes  \
     0  [[[432, 648], [723, 648], [723, 698], [432, 69...   
@@ -402,6 +423,7 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2  [[[178, 430], [300, 430], [300, 462], [178, 46...   
     3  [[[263, 465], [383, 465], [383, 501], [263, 50...   
     4  [[[2263, 398], [2347, 398], [2347, 436], [2263...   
+    5  [[[236, 372], [344, 372], [344, 396], [236, 39...   
     
                        licenseplateextractor.scores  
     0                           [0.765264012834225]  
@@ -409,17 +431,12 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2                          [0.8205181373232121]  
     3                         [0.37683450003837526]  
     4  [0.005999226930693703, 0.041628318390644674]  
+    5      [0.3380678860228084, 0.8426790601376755]  
 
 
 
     
 ![png](README_files/README_12_7.png)
-    
-
-
-
-    
-![png](README_files/README_12_8.png)
     
 
 
@@ -429,6 +446,7 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2                   [EGB62644]   
     3                   [LEM446A4]   
     4        [4II982A7A, 770L7726]   
+    5     [LPD7SRV616, IPD8NBZ548]   
     
                             licenseplateextractor.bboxes  \
     0  [[[432, 648], [723, 648], [723, 698], [432, 69...   
@@ -436,6 +454,7 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2  [[[178, 430], [300, 430], [300, 462], [178, 46...   
     3  [[[263, 465], [383, 465], [383, 501], [263, 50...   
     4  [[[2263, 398], [2347, 398], [2347, 436], [2263...   
+    5  [[[236, 372], [344, 372], [344, 396], [236, 39...   
     
                        licenseplateextractor.scores  
     0                           [0.765264012834225]  
@@ -443,6 +462,56 @@ annotate_image_ocr(dataframe, 'ezgif-frame-001.jpg', frame_id = 5)
     2                          [0.8205181373232121]  
     3                         [0.37683450003837526]  
     4  [0.005999226930693703, 0.041628318390644674]  
+    5      [0.3380678860228084, 0.8426790601376755]  
+
+
+
+    
+![png](README_files/README_12_9.png)
+    
+
+
+
+    
+![png](README_files/README_12_10.png)
+    
+
+
+      licenseplateextractor.labels  \
+    0                  [TN4805566]   
+    1                   [INAQ3044]   
+    2                   [EGB62644]   
+    3                   [LEM446A4]   
+    4        [4II982A7A, 770L7726]   
+    5     [LPD7SRV616, IPD8NBZ548]   
+    
+                            licenseplateextractor.bboxes  \
+    0  [[[432, 648], [723, 648], [723, 698], [432, 69...   
+    1  [[[298, 238], [398, 238], [398, 264], [298, 26...   
+    2  [[[178, 430], [300, 430], [300, 462], [178, 46...   
+    3  [[[263, 465], [383, 465], [383, 501], [263, 50...   
+    4  [[[2263, 398], [2347, 398], [2347, 436], [2263...   
+    5  [[[236, 372], [344, 372], [344, 396], [236, 39...   
+    
+                       licenseplateextractor.scores  
+    0                           [0.765264012834225]  
+    1                          [0.5979598335637649]  
+    2                          [0.8205181373232121]  
+    3                         [0.37683450003837526]  
+    4  [0.005999226930693703, 0.041628318390644674]  
+    5      [0.3380678860228084, 0.8426790601376755]  
+
+
+
+    
+![png](README_files/README_12_12.png)
+    
+
+
+
+    
+![png](README_files/README_12_13.png)
+    
 
 
 ## Annotate Model Output on Video
