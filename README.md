@@ -75,12 +75,12 @@ print(response)
     @batch: 
                                                      0
     0  UDF LicensePlateExtractor successfully dropped
-    @query_time: 0.021781272953376174
+    @query_time: 0.019972976995632052
     @status: ResponseStatus.SUCCESS
     @batch: 
                                                                     0
     0  UDF LicensePlateExtractor successfully added to the database.
-    @query_time: 6.117155366810039
+    @query_time: 6.114761576987803
 
 
 # Download Images or Videos for License Plate Recognition
@@ -170,37 +170,37 @@ print(response2)
     @batch: 
                                            0
     0  Table Successfully dropped: MyImages
-    @query_time: 0.044570326106622815
+    @query_time: 0.04412597301416099
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.06453206902369857
+    @query_time: 0.0662798760458827
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.019328153925016522
+    @query_time: 0.019339628983289003
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.016461054794490337
+    @query_time: 0.01639268104918301
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.018691211938858032
+    @query_time: 0.017678288044407964
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.12282829103060067
+    @query_time: 0.124768259935081
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded IMAGE: 1
-    @query_time: 0.023271142039448023
+    @query_time: 0.024363385047763586
     @status: ResponseStatus.SUCCESS
     @batch: 
        licenseplateextractor.labels  \
@@ -226,19 +226,19 @@ print(response2)
     3                         [0.37683450003837526]  
     4  [0.005999226930693703, 0.041628318390644674]  
     5      [0.3380678860228084, 0.8426790601376755]  
-    @query_time: 6.468493198044598
+    @query_time: 6.489902378991246
     File ‘video12.mp4’ already there; not retrieving.
     
     @status: ResponseStatus.SUCCESS
     @batch: 
                                            0
     0  Table Successfully dropped: MyVideos
-    @query_time: 0.03346487390808761
+    @query_time: 0.03170231496915221
     @status: ResponseStatus.SUCCESS
     @batch: 
                                 0
     0  Number of loaded VIDEO: 1
-    @query_time: 0.11669299798086286
+    @query_time: 0.10924463905394077
     @status: ResponseStatus.SUCCESS
     @batch: 
        licenseplateextractor.labels  \
@@ -249,7 +249,7 @@ print(response2)
     
       licenseplateextractor.scores  
     0         [0.5929218894477851]  
-    @query_time: 5.811167005915195
+    @query_time: 5.729900116100907
 
 
 ### Annotate Model Output on Image
